@@ -10,6 +10,7 @@ import { DataService } from 'src/app/shared/service/data.service';
 import { AddPatientComponent } from './add-patient/add-patient.component';
 import { DeletePatientComponent } from './delete-patient/delete-patient.component';
 import { FindPatientComponent } from './find-patient/find-patient.component';
+import { getDatabase, ref, onValue} from "firebase/database";
 
 @Component({
   selector: 'app-patient',
@@ -50,6 +51,7 @@ export class PatientComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(data => {
       if(data) {
+        data.print_id="jvluhvsvjd";
         this.dataApi.addPatient(data);
         this.openSnackBar("Registration of patient is successful.", "OK")
       }
@@ -71,9 +73,23 @@ export class PatientComponent implements OnInit {
       if(data) {
        // this.dataApi.addPatient(data);
        // this.openSnackBar( "Scan print","Ok");
+       this.getuserprint();
       }
     })
   }
+
+  getuserprint(){
+    var data;
+    const rdb = getDatabase();
+    const starCountRef = ref(rdb, 'print_id');
+    onValue(starCountRef, (snapshot) => {
+       data = snapshot.val();
+        //data;
+      console.log(data);
+      
+    });
+  }
+
   getAllPatients() {
     this.dataApi.getAllPatients().subscribe(res => {
       this.allPatients = res.map((e:any) => {

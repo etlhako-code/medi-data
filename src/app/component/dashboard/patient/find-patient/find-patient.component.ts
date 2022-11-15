@@ -36,11 +36,16 @@ export class FindPatientComponent implements OnInit {
 
   async getPatient() {
     //this.form.value.doctor_name = await this.getDoctorName(this.form.value.id);
+    var print_id;
     this.dialogRef.close(true);
     this.openSnackBar("Scan Print......","OK");
     console.log("pressesed");
-    
-    //this.dataApi.getPatientById(9);
+    this.dataApi.getPrintId().subscribe(d=>{
+      print_id = d;
+    })
+    this.dataApi.findPatientByPrint(print_id).subscribe((users:any)=>{
+      window.open('/dashboard/patient/'+users.id,'_blank');
+    })//getPatientById(9);
   }
 
   openSnackBar(message: string, action: string) {

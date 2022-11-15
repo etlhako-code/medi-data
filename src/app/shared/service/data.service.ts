@@ -34,15 +34,16 @@ export class DataService {
   }
   addPatient(patient : any) {
     patient.patient_id = this.afs.createId();
-    patient.print_id = this.getPrintId();
+   // patient.print_id = this.getPrintId();
     return this.afs.collection("Patient/").add(patient);
   }
   public getPrintId(){
-    return this.http.get(this.apiBaseUrl+"/printid");
+    return this.http.get(this.apiBaseUrl+"printid");
   }
-  findPatientByPrint(){
-    var print_id = this.getPrintId();
+  findPatientByPrint(print_id:any){
+    //var print_id = this.getPrintId();
     return this.afs.doc("Patient/"+print_id).valueChanges();
+    //return this.afs.collection('patient').get();
   }
   getAllPatients() {
     return this.afs.collection("Patient/").snapshotChanges();

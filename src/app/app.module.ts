@@ -21,6 +21,7 @@ import { DeletePatientComponent } from './component/dashboard/patient/delete-pat
 import { ViewPatientComponent } from './component/dashboard/patient/view-patient/view-patient.component';
 import { LoginComponent } from './component/auth/login/login.component';
 import { FindPatientComponent } from './component/dashboard/patient/find-patient/find-patient.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { FindPatientComponent } from './component/dashboard/patient/find-patient
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
